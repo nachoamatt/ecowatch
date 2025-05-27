@@ -1,0 +1,12 @@
+# Ignorar entorno virtual
+venv/
+
+# Archivos de sistema
+.DS_Store
+
+# Archivos temporales
+*.pyc
+__pycache__/
+
+# Archivos de logs
+*.log
