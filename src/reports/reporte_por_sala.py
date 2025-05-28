@@ -1,14 +1,11 @@
-from src.models.sala import Sala
+from src.reports.base import ReporteBase
 
-class ReportePorSala:
+class ReportePorSala(ReporteBase):
     def generar(self, salas: dict) -> str:
         salida = ["📊 Reporte por Sala:\n"]
-
-        for nombre, sala in salas.items():
-            salida.append(f"Sala: {nombre}")
+        for sala in salas.values():
+            salida.append(f"Sala: {sala.nombre}")
             salida.append(f"  - Temperatura promedio: {sala.temperatura_promedio():.2f}°C")
             salida.append(f"  - Humedad promedio: {sala.humedad_promedio():.2f}%")
-            salida.append(f"  - CO₂ promedio: {sala.co2_promedio():.2f} ppm")
-            salida.append("")
-
+            salida.append(f"  - CO₂ promedio: {sala.co2_promedio():.2f} ppm\n")
         return "\n".join(salida)

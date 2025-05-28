@@ -1,7 +1,6 @@
 from src.loaders.load_logs import cargar_logs_desde_csv
 from src.utils.group_logs_by_sala import agrupar_logs_por_sala
-from src.reports.reporte_por_sala import ReportePorSala
-from src.reports.reporte_alertas import ReporteAlertas
+from src.reports.factory import crear_reporte
 
 if __name__ == "__main__":
     ruta = "data/logs_ambientales_ecowatch.csv"
@@ -11,8 +10,8 @@ if __name__ == "__main__":
 
     print("\U0001F4CA Reporte Estadístico")
     print("======================")
-    print(ReportePorSala().generar(salas))
+    print(crear_reporte("estadisticas").generar(salas))
 
     print("\n🚨 Reporte de Alertas")
     print("======================")
-    print(ReporteAlertas().generar(salas))
+    print(crear_reporte("alertas").generar(salas))
