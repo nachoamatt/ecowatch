@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from src.load_logs import cargar_logs_desde_csv
+from loaders.load_logs import cargar_logs_desde_csv
 from src.cache.cache_logs import CacheLogs
 
 if __name__ == "__main__":

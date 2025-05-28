@@ -1,4 +1,4 @@
-from src.load_logs import cargar_logs_desde_csv
+from src.loaders.load_logs import cargar_logs_desde_csv
 from src.models.sala import Sala
 
 def agrupar_logs_por_sala(logs: list) -> dict:
