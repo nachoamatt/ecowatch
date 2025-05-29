@@ -52,7 +52,7 @@ ecowatch/
 │   └── utils/             ← validadores y agrupadores
 ├── tests/                 ← tests unitarios con pytest
 ├── main.py                ← menú interactivo
-├── requirements.txt       ← librerías (a completar)
+├── requirements.txt       ← librerías
 └── README.md              ← este archivo
 ```
 
@@ -81,7 +81,28 @@ pytest tests/
 
 - Python 3.10+
 - pytest
-- (Agregar librerías adicionales en `requirements.txt` si se usan)
+
+---
+
+## 🧠 Justificación técnica
+
+Durante el desarrollo del sistema EcoWatch, se tomaron decisiones técnicas con foco en **modularidad**, **rendimiento**, y **extensibilidad**:
+
+### 🔹 Estructuras de datos
+- **Listas**: Se usaron listas (`list`) para almacenar los logs, ya que permiten orden cronológico y recorridos eficientes con volumen acotado. En la caché (`CacheLogs`), se filtran dinámicamente los registros vencidos cada vez que se inserta un nuevo log. Esto evita estructuras más complejas como heaps o árboles, que no eran necesarias por el volumen y ventana temporal limitada (5 minutos).
+- **Diccionarios (`dict`)**: Se agruparon logs por sala usando diccionarios para obtener acceso rápido (`O(1)`) a cada agrupación.
+
+### 🔹 Programación orientada a objetos
+- Se modelaron entidades del dominio como clases (`Log`, `Sala`, `CacheLogs`, `Reporte`) para encapsular datos y comportamientos. Esto mejora la legibilidad y permite que el sistema crezca fácilmente (por ejemplo, agregando nuevos sensores o nuevas métricas sin modificar la estructura existente).
+
+### 🔹 Patrones de diseño
+- **Factory**: Usado para instanciar diferentes tipos de reportes sin acoplar el código principal a una clase específica. Esto permite que los reportes sean configurables y se puedan agregar nuevos sin modificar el `main`.
+- **Strategy**: Aplicado dentro de los reportes para encapsular distintas lógicas de generación, por ejemplo: estadísticas por sala vs. alertas. Cada reporte implementa su propia estrategia de procesamiento.
+
+### 🔹 Optimización y extensibilidad
+- Se priorizó la **legibilidad** y la **modularidad** por sobre micro-optimizaciones, ya que el sistema está diseñado para ser mantenido y escalado por otros equipos.
+- El diseño permite agregar nuevas fuentes de datos (como JSON o APIs) o nuevos tipos de reportes con mínimo esfuerzo y sin alterar el núcleo del sistema.
+- La inclusión de un parámetro `ahora` en `CacheLogs` permite testear comportamientos con datos históricos o eventos fuera de orden.
 
 ---
 
