@@ -25,3 +25,5 @@ class CacheLogs:
 
     def __str__(self):
         return f"Cache con {len(self.logs)} logs en los últimos 5 minutos"
+    
+    
