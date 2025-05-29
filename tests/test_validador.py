@@ -35,3 +35,15 @@ def test_validador_log_invalido():
     }
     with pytest.raises(ValueError, match="Los valores de temperatura, humedad y co2 deben ser numéricos."):
         validar_log_dict(data)
+
+def test_validador_log_multiples_errores():
+    data = {
+        "timestamp": "2025-05-01 08:00:00",
+        "temperatura": "veintidos",  # inválido
+        "humedad": "cuarenta",       # inválido
+        # faltan "sala" y "co2"
+    }
+    with pytest.raises(ValueError) as excinfo:
+        validar_log_dict(data)
+    mensaje = str(excinfo.value)
+    assert "Falta el campo obligatorio" in mensaje or "Los valores de temperatura, humedad y co2 deben ser numéricos." in mensaje
