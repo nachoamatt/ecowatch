@@ -4,6 +4,14 @@ from src.models.cache import CacheLogs
 from src.reports.reporte_por_sala import ReportePorSala
 from src.reports.reporte_alertas import ReporteAlertas
 
+def mostrar_menu():
+    print("\n📋 Bienvenido a EcoWatch")
+    print("\nSeleccione una opción:")
+    print("1. Ver reporte estadístico")
+    print("2. Ver reporte de alertas")
+    print("3. Ver estado de la caché")
+    print("4. Salir")
+
 if __name__ == "__main__":
     ruta = "data/logs_ambientales_ecowatch.csv"
     logs = cargar_logs_desde_csv(ruta)
@@ -16,13 +24,24 @@ if __name__ == "__main__":
     # Agrupamos los logs por sala
     salas = agrupar_logs_por_sala(logs)
 
-    # Reporte estadístico
-    print("\n📊 Reporte Estadístico\n" + "=" * 22)
-    print(ReportePorSala().generar(salas))
+    while True:
+        mostrar_menu()
+        opcion = input("\nIngrese una opción (1-4): ")
 
-    # Reporte de alertas
-    print("\n🚨 Reporte de Alertas\n" + "=" * 22)
-    print(ReporteAlertas().generar(salas))
+        if opcion == "1":
+            print("\n📊 Reporte Estadístico\n" + "=" * 22)
+            print(ReportePorSala().generar(salas))
 
-    # Estado de la caché
-    print(f"\n🧠 Estado de la caché: {cache}")
+        elif opcion == "2":
+            print("\n🚨 Reporte de Alertas\n" + "=" * 22)
+            print(ReporteAlertas().generar(salas))
+
+        elif opcion == "3":
+            print(f"\n🧠 Estado de la caché: {cache}")
+
+        elif opcion == "4":
+            print("\n👋 Gracias por usar EcoWatch. ¡Hasta luego!\n")
+            break
+
+        else:
+            print("❌ Opción inválida. Por favor, elija una opción entre 1 y 4.")
