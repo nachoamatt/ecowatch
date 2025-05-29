@@ -1,4 +1,5 @@
 import csv
+from src.utils.validador import validar_log_dict
 from src.models.log import Log
 
 def cargar_logs_desde_csv(ruta_csv: str) -> list[Log]:
@@ -7,13 +8,7 @@ def cargar_logs_desde_csv(ruta_csv: str) -> list[Log]:
         lector = csv.DictReader(archivo)
         for fila in lector:
             try:
-                log = Log(
-                    timestamp=fila["timestamp"],
-                    sala=fila["sala"],
-                    temperatura=float(fila["temperatura"]),
-                    humedad=float(fila["humedad"]),
-                    co2=float(fila["co2"])
-                )
+                log = validar_log_dict(fila)
                 logs.append(log)
             except Exception as e:
                 print(f"❌ Error al procesar fila: {fila}\n   Motivo: {e}")

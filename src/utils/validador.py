@@ -1,4 +1,4 @@
-from models.log import Log
+from src.models.log import Log
 
 def validar_log_dict(data: dict) -> Log:
     """
