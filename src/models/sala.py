@@ -26,3 +26,9 @@ class Sala:
         if not self.logs:
             return 0.0
         return sum(log.co2 for log in self.logs) / len(self.logs)
+
+    def alertas(self, temp_max=30.0, co2_max=1000.0):
+        return [
+            log for log in self.logs
+            if log.temperatura > temp_max or log.co2 > co2_max
+        ]
